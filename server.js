@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const logger = require('./middleware/logger');
 const morgan = require('morgan');
+const helmet = require('helmet');
 const mongosanatize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
 const fileupload = require('express-fileupload');
@@ -37,6 +38,9 @@ if (process.env.NODE_ENV === 'development') {
 
 // Sanitize Data
 app.use(mongosanatize);
+
+// Set Security Headers
+app.use(helmet());
 
 // File Upload
 app.use(fileupload());
