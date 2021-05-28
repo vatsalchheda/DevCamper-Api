@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const logger = require('./middleware/logger');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
 const xss = require('xss-clean');
 const mongosanatize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
@@ -45,6 +47,16 @@ app.use(helmet());
 
 // Use XSS clean to remove Scripts (Prevent Cross site Scripting tags)
 app.use(xss());
+
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: 100,
+});
+app.use(limiter);
+
+// Prevent http param pollution
+app.use(hpp());
 
 // File Upload
 app.use(fileupload());
