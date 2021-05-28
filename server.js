@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const logger = require('./middleware/logger');
 const morgan = require('morgan');
+const mongosanatize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
 const fileupload = require('express-fileupload');
 const connectDB = require('./config/db');
@@ -33,6 +34,9 @@ app.use(cookieParser());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+// Sanitize Data
+app.use(mongosanatize);
 
 // File Upload
 app.use(fileupload());
