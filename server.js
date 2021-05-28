@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const logger = require('./middleware/logger');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const xss = require('xss-clean');
 const mongosanatize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
 const fileupload = require('express-fileupload');
@@ -41,6 +42,9 @@ app.use(mongosanatize);
 
 // Set Security Headers
 app.use(helmet());
+
+// Use XSS clean to remove Scripts (Prevent Cross site Scripting tags)
+app.use(xss());
 
 // File Upload
 app.use(fileupload());
