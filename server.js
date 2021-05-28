@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
+const cors = require('cors');
 const xss = require('xss-clean');
 const mongosanatize = require('express-mongo-sanitize');
 const cookieParser = require('cookie-parser');
@@ -47,6 +48,9 @@ app.use(helmet());
 
 // Use XSS clean to remove Scripts (Prevent Cross site Scripting tags)
 app.use(xss());
+
+//Enable CORS
+app.use(cors);
 
 // Rate Limiting
 const limiter = rateLimit({
