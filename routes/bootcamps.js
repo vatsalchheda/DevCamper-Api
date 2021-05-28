@@ -14,6 +14,7 @@ const Bootcamp = require('../models/Bootcamp');
 
 // Include other resource routers
 const courseRouter = require('./courses');
+const reviewRouter = require('./reviews');
 
 // Initilize Router
 const router = express.Router();
@@ -22,6 +23,7 @@ const { protect, authorize } = require('../middleware/auth');
 
 // Re-route into other resources
 router.use('/:bootcampId/courses', courseRouter);
+router.use('/:bootcampId/reviews', reviewRouter);
 
 // Routes for Bootcamps
 router.route('/radius/:zipcode/:distance').get(getBootcampsInRadius);

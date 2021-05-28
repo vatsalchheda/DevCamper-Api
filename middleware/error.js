@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
   console.log(err);
 
   if (err.name === 'CastError') {
-    const message = `Bootamp not found with the id of ${err.value}`;
+    const message = `Resource not found with the id of ${err.value}`;
     error = new ErrorResponse(message, 404);
   }
 
